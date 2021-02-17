@@ -1,6 +1,8 @@
 # Assignment1Calc
-This ia a small first Assignment in .Net Core C#
-Task is to make a small and simple calculator in an console. So a textbased calculator.
+This ia a small first Assignment in .Net Core C#.
+
+The task is to make a small and simple calculator in an console. So a textbased calculator.
+
 The main task is to understand the fundamentals of C# and how to write a simple console application.
 
 
