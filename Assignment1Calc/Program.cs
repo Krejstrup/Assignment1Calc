@@ -26,7 +26,7 @@ namespace Assignment1Calc
             Boolean keepAlive = true;
             Console.WriteLine("Let's begin!");
 
-            //**** now I'll be reusing some menue code from previous exercises
+            //**** now I'll be reusing some menu code from previous exercises
             while (keepAlive)
             {
                 try     // The exception is used to catch the wrong type of input
@@ -40,6 +40,8 @@ namespace Assignment1Calc
                     Console.Write("Enter a menu selection [0 for quit]:");
                     int assigenmentChoice = int.Parse(Console.ReadLine() ?? "");
                     Console.ForegroundColor = ConsoleColor.Green;
+                    int firstNumber;
+                    int secondNumber;
 
                     switch (assigenmentChoice)
                     {
@@ -47,24 +49,35 @@ namespace Assignment1Calc
                             keepAlive = false;
                             break;
                         case 1:     // Here I want to use addition
+
                             Console.WriteLine("Good choice: Addition");
-                            AdditionCalc();
+                            Console.WriteLine("Use: Result = First number + Second number");
+                            Console.Write("Please enter first number: ");
+                            firstNumber = GetNumber();
+                            Console.Write("Please enter second number: ");
+                            secondNumber = GetNumber();
+                            
+                            Console.WriteLine("The sum of {0} and {1} is {2}.", firstNumber, secondNumber, AdditionCalc(firstNumber,secondNumber));
                             break;
                         case 2:     // Here I want to use subtraction
                             Console.WriteLine("Good choice: Subtraction");
-                            SubtractionCalc();
+                            Console.WriteLine("Use: Result = First number - Second number");
+                            Console.Write("Please enter first number: ");
+                            firstNumber = GetNumber();
+                            Console.Write("Please enter second number: ");
+                            secondNumber = GetNumber();
+
+                            Console.WriteLine("The subtract of {0} and {1} is {2}.", firstNumber, secondNumber, SubtractionCalc(firstNumber, secondNumber));
+
                             break;
                         case 3:     // Here I want to use multiplication
                             Console.WriteLine("Good choice: Multiplication");
+
                             MultiCalc();
                             break;
                         case 4:     // Here I want to use division
                             Console.WriteLine("Good choice: Division");
                             DiviCalc();
-                            break;
-                        case 5:     // Should I like to add something more?
-                            Console.WriteLine("Ahhh: The hidden feature!");
-                            
                             break;
 
                         default:    // if the selections is not fulfild above, this will happen:
@@ -95,6 +108,12 @@ namespace Assignment1Calc
          * Only checks for valid number, repeats and returns it.
          * 
          */
+
+        /// <summary>
+        /// GetNumber() just reds a number entered by user and converts it to a
+        /// number. Reenter if number could not be read as a genuine number.
+        /// </summary>
+        /// <returns>The number entered by user.</returns>
         private static int GetNumber()
         {
             int mySlask;
@@ -118,31 +137,49 @@ namespace Assignment1Calc
          * that can calc a sum to report as result.
          * Checks for result value Overflow
          */
-        private static void AdditionCalc()
+        private static int AdditionCalc(int firstNumber, int secondNumber)
         {
             // we should enter two numbers. Start with integer and then maybe float/double.
-            int firstNumber;
-            int secondNumber;
-            int totalResult;
+            int sumNumber;
 
-            Console.WriteLine("Use: Result = First number + Second number");
-            Console.Write("Please enter first number: ");
-            firstNumber = GetNumber();
-            Console.Write("Please enter second number: ");
-            secondNumber = GetNumber();
             try
             {
                 checked
                 {
-                    totalResult = firstNumber + secondNumber;
+                    sumNumber = firstNumber + secondNumber;
                 }
-                Console.WriteLine("The sum of {0} and {1} is {2}.", firstNumber, secondNumber, totalResult);
+                return sumNumber;
             }
             catch
             {
                 Console.WriteLine("* WHOH! OVERFLOW!! Are you trying to break shit?!?!?!");
             }
+            return -1;  // return error 
         }
+
+        private static int AdditionCalc(int[] inputNumbers)
+        {
+            // we should enter two numbers. Start with integer and then maybe float/double.
+            int sumNumber = 0;
+
+            try
+            {
+                checked
+                {
+                    foreach(int addNumber in inputNumbers)
+                    {
+                        sumNumber += addNumber;
+                    }
+                }
+                return sumNumber;
+            }
+            catch
+            {
+                Console.WriteLine("* WHOH! OVERFLOW!! Are you trying to break shit?!?!?!");
+            }
+            return -1;  // return error 
+        }
+
 
         /************************************
           * Method SubtractionCalc()
@@ -151,19 +188,25 @@ namespace Assignment1Calc
           * that can calc a subtact to report as result.
           * Not checking for value Overflow!
           */
-        private static void SubtractionCalc()
+        private static int SubtractionCalc(int firstNumber, int secondNumber)
         {
-            int firstNumber;
-            int secondNumber;
 
-            Console.WriteLine("Use: Result = First number - Second number");
-            Console.Write("Please enter first number: ");
-            firstNumber = GetNumber();
-            Console.Write("Please enter second number: ");
-            secondNumber = GetNumber();
-            Console.WriteLine("The subtract of {0} and {1} is {2}.", firstNumber, secondNumber, firstNumber - secondNumber);
+            return (firstNumber - secondNumber);
 
         }
+
+        private static int SubtractionCalc(int[] inputNumbers)
+        {
+            int subNumber = inputNumbers[0];
+
+            for (int myLoop = 1; myLoop < inputNumbers.Length; myLoop++)
+            {
+                subNumber -= inputNumbers[myLoop];
+            }
+            return subNumber;
+
+        }
+
 
         /************************************
         * Method MultiCalc()
