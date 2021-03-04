@@ -22,7 +22,7 @@ Code Requirements:
   
  • Use a loop and a menu system to keep the program running.
  
- 
+ This program was refactored to use testings with xUnit.
  
  Thank you!
  Richard Krejstrup
